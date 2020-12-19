@@ -140,6 +140,7 @@ exports.login = async (data) => {
             active: user.active,
             name: user.name,
             token: token,
+            avatar: user.avatar,
         };
 
         return {
