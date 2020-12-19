@@ -102,7 +102,8 @@ exports.setComment = async (id, userId, data) => {
 exports.getComment = async (id) => {
     let post = await Post.findById({_id: id})
                          .populate({path: "comment.creator", populate: "users", select: "name avatar"})
-    return post
+    let comment = post.comment
+    return comment
 }
 
 
