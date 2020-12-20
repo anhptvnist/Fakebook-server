@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user');
+const Post = require('../../models/post')
 const { registerValidation, loginValidation } = require('./validate');
 const fs = require("fs");
 
@@ -182,6 +183,34 @@ exports.changeInformation = async (
         )
             fs.unlinkSync(deleteAvatar);
         user.avatar = avatar;
+    }
+    await user.save();
+
+    return user;
+};
+
+exports.changeAvatar = async (
+    id,
+    described,
+    avatar = undefined
+) => {
+    
+    let user = await User.findById(id)
+
+    let deleteAvatar = "." + user.avatar;
+    if (avatar) {
+        if (
+            deleteAvatar !== "./upload/avatars/user.jpg" &&
+            fs.existsSync(deleteAvatar)
+        )
+            fs.unlinkSync(deleteAvatar);
+        user.avatar = avatar;
+        let post = Post.create({
+            described: described,
+            status: "Thay đổi ảnh đại diện",
+            image: avatar,
+            creator: id
+        })
     }
     await user.save();
 
