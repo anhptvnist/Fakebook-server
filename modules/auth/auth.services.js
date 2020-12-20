@@ -4,7 +4,6 @@ const User = require('../../models/user');
 const Post = require('../../models/post')
 const { registerValidation, loginValidation } = require('./validate');
 const fs = require("fs");
-const { userInfo } = require('os');
 
 
 /**
