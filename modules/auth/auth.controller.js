@@ -147,8 +147,8 @@ exports.changeAvatar = async (req, res) => {
             let path = req.file.destination + '/' + req.file.filename;
             avatar = path.substr(1, path.length)
         }
-
-        const profile = await AuthService.changeAvatar(req.user._id, req.body.described ,avatar);
+        console.log("avta", avatar)
+        const profile = await AuthService.changeAvatar(req.user._id, req.body.described , avatar);
 
         res.status(200).json({
             success: true,

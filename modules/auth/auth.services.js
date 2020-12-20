@@ -4,6 +4,7 @@ const User = require('../../models/user');
 const Post = require('../../models/post')
 const { registerValidation, loginValidation } = require('./validate');
 const fs = require("fs");
+const { userInfo } = require('os');
 
 
 /**
@@ -196,7 +197,6 @@ exports.changeAvatar = async (
 ) => {
     
     let user = await User.findById(id)
-
     let deleteAvatar = "." + user.avatar;
     if (avatar) {
         if (
@@ -205,7 +205,7 @@ exports.changeAvatar = async (
         )
             fs.unlinkSync(deleteAvatar);
         user.avatar = avatar;
-        let post = Post.create({
+        let post = await Post.create({
             described: described,
             status: "Thay đổi ảnh đại diện",
             image: avatar,
