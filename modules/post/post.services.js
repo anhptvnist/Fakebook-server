@@ -77,7 +77,7 @@ exports.getListPost = async (id) => {
     return post;
 };
 
-exports.getListPost = async (id) => {
+exports.getListPostPerson = async (id) => {
     let post = await Post.find({creator: id})
                         .populate({path: "creator", populate: "users", select: "name avatar"})
 
